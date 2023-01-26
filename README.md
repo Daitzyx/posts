@@ -9,6 +9,6 @@ This project was made to practice my knowledge in php.
 
 Go to file public and send this command on terminal "php -S localhost:8080"
 
-*Technologies
+# Technologies
 
 HTML, Bootstrap, Javascript, php with MVC
