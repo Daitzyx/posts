@@ -1,0 +1,30 @@
+<div class="container text-center h-60 pt-4 border">
+
+  <h1>Register New Author</h1> 
+
+  <form class="d-flex flex-column align-items-sm-center h-70 " action="/" method="POST">
+    <div class="m-2">
+        <input name="author" class="form-control" type="text" placeholder="Author" >
+    </div>
+
+    <button  class="btn btn-primary m-4">
+      Cadastrar
+    </button>
+  </form>
+
+</div>
+
+
+<div class="container text-center pt-4">
+
+  <h1>Authors registereds</h1>
+
+  <ul class="list-inline">
+    <?php foreach($this->view->allAuthors as $index_arr => $author) { ?>
+      <li class="h5 text-secondary">
+        <?php echo $author['author']; ?>
+      </li>
+    <?php } ?>
+  </ul>
+
+</div>

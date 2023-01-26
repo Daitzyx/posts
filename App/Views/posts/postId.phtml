@@ -1,0 +1,92 @@
+<div class="container text-center h-100" >
+  <h1>Post</h1>
+        
+  <?php 
+
+    function recursiveFunc($allComments, $html = '', $bgColor = true) {
+      
+    if($bgColor) {
+      $html .= '<ul class="mt-4 pb-4 pt-2 text-left" style="background: #cbe3f5; " >';
+    } else {
+      $html .= '<ul class="mt-4 pb-4 pt-2 text-left" style="background: #FFF; " >';
+    }
+
+    $c = 1;
+
+    foreach($allComments as $index => $comment) {
+
+    $html .= '<li class="text-left pt-4">';
+    $html .= '<strong>' . $comment['nome'] . '</strong>';
+    $html .= '<p>' . $comment['message'] . '</p>';
+    $html .= '<button class="btn btn-light border" id="answerBtn" onclick="openForm('.$comment['id'].')" type="button">Responder</button>';
+    
+    $html .= '<form id="toAnswer-' . $comment['id'] . '"  class="m-2 disabled" method="POST">
+      <input id="id_comment" class="form-control" value="' . $comment['id'] . '" name="id_comment" type="hidden" />
+      <input name="nome" />
+
+      <textarea class="form-control" name="comment" maxlength="50"></textarea>
+      <input type="submit" class="btn btn-primary" value="enviar" />
+    </form>';
+    $html .= '</li>';
+
+    if(isset($comment['responses']) && count($comment['responses'])) {
+      $html = recursiveFunc($comment['responses'], $html, !$bgColor); 
+    }
+
+    }
+
+    $html .= '</ul>';
+
+    return $html;
+
+    }
+
+    $html = recursiveFunc($this->view->comments);
+
+?>
+
+  <div class="w-full ">
+    <div class="border rounded ">
+      <p>
+        <?php echo $this->view->postId['author']; ?>
+      </p>
+      <p class="w-full text-wrap">
+        <?php echo $this->view->postId['post']; ?>
+      </p>
+      <p>
+        <span>
+          <?php echo $this->view->postId['data']; ?>
+        </span>
+      </p>
+
+      <h3>Respostas</h3>
+      <div>
+        <?php echo $html; ?>
+      </div>
+      <?php 
+        print_r($this->view->answer); 
+      ?>
+            
+    </div>
+
+  </div>
+  <form class="mt-4" method="POST">
+    <p><strong>Deixe sua mensagem</strong></p>
+
+    <fieldset id='answer' class="m-2">
+      <textarea name="comment" class="form-control" placeholder="Your message..." id="post" rows="5" cols="30" rows="10"></textarea>
+    </fieldset>
+
+    <div class="m-2" >
+      <select class="form-control" type="text" name="nome" >
+          <?php foreach($this->view->allAuthors as $index_arr => $author) { ?>
+            <option>
+              <?php echo $author['author']; ?>
+            </option>
+          <?php } ?>
+        </select>
+    </div>
+
+    <button class="btn btn-primary">Responder</button>
+  </form>
+</div>

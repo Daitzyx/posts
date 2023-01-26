@@ -1,0 +1,47 @@
+<div class="container text-center h-60 pt-4 border">
+
+  <h1>Add your Post</h1> 
+
+  <form class="d-flex flex-column align-items-sm-center h-70" action="/post" method="POST">
+    <div class="m-2">
+        <select name="author" class="form-control" placeholder="Author" >
+          <?php foreach($this->view->allAuthors as $index_arr => $author) { ?>
+            <option>
+              <?php echo $author['author']; ?>
+            </option>
+          <?php } ?>
+        </select>
+    </div>
+
+    <fieldset class="m-2">
+      <textarea name="post" class="form-control" id="post" cols="30" rows="5" maxlength="125"></textarea>
+    </fieldset>
+
+    <button  class="btn btn-primary m-4">
+      Enviar
+    </button>
+  </form>
+
+</div>
+
+<div class="container text-center h-100 mt-4">
+  <div  class="row">
+    <?php foreach($this->view->allPosts as $index_arr => $post) { ?>
+      <div class="col-4 border p-2 mb-2 rounded">
+        <p>
+          <?php echo $post['author']; ?>
+        </p>
+        <p>
+          <?php echo $post['post']; ?>
+
+        </p>
+        <p>
+          <span>
+            <?php echo $post['data']; ?>
+          </span>
+          <a href="/posted?id=<?php echo $post['id']; ?>" class="border-0 bg-white text-primary">Responder</a>
+        </p>
+      </div>
+    <?php } ?>
+  </div>
+</div>
